@@ -236,6 +236,25 @@ const color = moni('#myDiv').css('color');
 moni('#myDiv').css('color', 'red');
 ```
 
+#### moni(selector).find()
+Find elements inside another thing.
+```javascript
+moni('#div').find('p').after('<div class="ok">OK</div>') 
+```
+
+#### moni(selector).text(?text)
+Set or get text of an element
+```javascript
+moni('div').on('click', 'div.ok', function () {
+  moni(this).text('text goes here')
+  const text = moni(this).text();
+
+  console.log({
+    text
+  })
+});
+```
+
 
 #### moni().ajax()
 Follow the example: 
@@ -260,4 +279,16 @@ moni('form').on('submit', e => {
     .execute();
 
 });
+```
+#### for bootrap modal
+Bootstrap is required for following things to work. 
+```javascript
+moni('#myModal').modal()
+  .show()
+
+moni('#myModal').modal()
+  .hide()
+
+moni('#myModal').modal()
+  .toggle()
 ```

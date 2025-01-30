@@ -1,0 +1,47 @@
+{
+  "name": "moni22",
+  "main": "dist/moni.umd.js",
+  "types": "dist/index.d.ts",
+  "author": {
+    "email": "monirsaikat1@gmail.com",
+    "name": "Moniruzzaman Saikat",
+    "url": "https://github.com/moniruzzamansaikat"
+  },
+  "license": "MIT",
+  "homepage": "https://moniruzzamansaikat.github.io/monijs/",
+  "private": false,
+  "version": "1.2.9",
+  "module": "dist/moni.es.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moniruzzamansaikat/monijs"
+  },
+  "files": [
+    "dist/"
+  ],
+  "keywords": [
+    "DOM",
+    "manipulation",
+    "events",
+    "minimal",
+    "moni22",
+    "monijs",
+    "javascript",
+    "library"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/node": "^22.5.5",
+    "fs": "^0.0.1-security",
+    "marked": "^14.1.2",
+    "tslib": "^2.7.0",
+    "vite": "^5.4.1",
+    "vite-plugin-copy": "^0.1.6"
+  }
+}

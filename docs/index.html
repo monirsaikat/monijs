@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moni.js</title>
+  <meta name="description" content=" is a minimal library for DOM manipulation and event handling. Below is a list of available methods with usage examples.">
+  <meta name="keywords" content="moni22, monijs, jquery alternative, dom manipulating, js library, js package, javascript">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <div class="content">
+    <div class="header">
+      <h1>moni.js</h1>
+      <a href="https://github.com/moniruzzamansaikat/monijs">
+        <img src="./github.svg" alt="github">
+      </a>
+    </div>
+    <p><code>moni.js</code> is a minimal library for DOM manipulation and event handling. Below is a list of available
+      methods with usage examples.</p>
+    <blockquote>
+      <p>Website: <a
+          href="https://moniruzzamansaikat.github.io/monijs/">https://moniruzzamansaikat.github.io/monijs/</a></p>
+    </blockquote>
+    <h4>Getting Started</h4>
+    <p>Include <code>moni.js</code> in your project and start manipulating DOM elements using the <code>moni</code>
+      keyword.</p>
+    <pre><code class="language-javascript">&lt;script src=&quot;path/to/moni.min.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+    <p>Or, using npm:</p>
+    <pre><code class="language-shell">npm i moni22
+</code></pre>
+    <p>Or, using cdn:</p>
+    <pre><code class="language-html">&lt;script src=&quot;https://cdn.jsdelivr.net/npm/moni22&quot;&gt;&lt;/script&gt;
+</code></pre>
+    <h3>Methods</h3>
+    <h4>moni(selector)</h4>
+    <p>Selects DOM elements.</p>
+    <pre><code class="language-javascript">moni(&#39;#myDiv&#39;);  // Select an element with ID &#39;myDiv&#39;
+moni(&#39;.myClass&#39;); // Select elements with class &#39;myClass&#39;
+</code></pre>
+    <h4>html(value)</h4>
+    <p>Gets or sets the HTML content of the selected element.</p>
+    <pre><code class="language-javascript">// Get HTML content
+const content = moni(&#39;#myDiv&#39;).html();
+
+// Set HTML content
+moni(&#39;#myDiv&#39;).html(&#39;&lt;p&gt;Hello, World!&lt;/p&gt;&#39;);
+</code></pre>
+    <h4>on(event, callback)</h4>
+    <p>Attaches an event listener to the selected elements.</p>
+    <pre><code class="language-javascript">moni(&#39;#myButton&#39;).on(&#39;click&#39;, function() {
+  alert(&#39;Button clicked!&#39;);
+});
+</code></pre>
+    <h4>each(callback)</h4>
+    <p>Executes a callback for each selected element.</p>
+    <pre><code class="language-javascript">moni(&#39;.myClass&#39;).each(function(el) {
+  console.log(el);
+});
+</code></pre>
+    <h4>remove()</h4>
+    <p>Remove elements from the dom</p>
+    <pre><code class="language-javascript">moni(&#39;div&#39;).remove()
+</code></pre>
+    <h4>attr(key, ?value)</h4>
+    <p>Get or set attributes</p>
+    <pre><code class="language-javascript">moni(&#39;button&#39;).on(&#39;click&#39;, function() {
+  const id = moni(&quot;#myDiv&quot;).css(&#39;color&#39;, &#39;red&#39;).attr(&#39;id&#39;);
+  moni(&#39;#myDiv&#39;).attr(&#39;data-abc&#39;, &#39;xyz&#39;);
+});
+</code></pre>
+    <h4>data(key, ?value)</h4>
+    <p>Get or set dataset attributes</p>
+    <pre><code class="language-javascript">moni(&#39;button&#39;).on(&#39;click&#39;, function() {
+  const name = moni(&#39;div&#39;).data(&#39;name&#39;);
+  
+  console.log(name);
+});
+</code></pre>
+    <h4>add(element, ?times)</h4>
+    <p>Add new elements inside another element</p>
+    <pre><code class="language-javascript">moni(&#39;button&#39;).on(&#39;click&#39;, function() {
+  moni(&#39;div&#39;).add(&#39;&lt;strong&gt;Small&lt;/strong&gt;&#39;, 4);
+  moni(&#39;div&#39;).add(&#39;&lt;p&gt;Paragraph&lt;/p&gt;&#39;);
+});
+</code></pre>
+    <h4>val(?value)</h4>
+    <p>Get or set value for a given element</p>
+    <pre><code class="language-javascript">moni(&#39;form&#39;).on(&#39;submit&#39;, function(e) {
+  e.preventDefault();
+  
+  const username = moni(&#39;input&#39;).val();
+  const coding   = moni(&#39;select&#39;).val()
+
+  console.log(username);
+  console.log(coding);
+
+  moni(&#39;select&#39;).val(&#39;js&#39;);
+  moni(&#39;input&#39;).val(&#39;&#39;);
+  moni(&#39;textarea&#39;).val(&#39;message&#39;);
+});
+</code></pre>
+    <h4>first()</h4>
+    <p>Get the first matched element</p>
+    <pre><code class="language-javascript">moni(&#39;p&#39;).first().css(&#39;color&#39;, &#39;red&#39;);
+</code></pre>
+    <h4>last()</h4>
+    <p>Get the last matched element</p>
+    <pre><code class="language-javascript">moni(&#39;p&#39;).last().css(&#39;color&#39;, &#39;red&#39;);
+</code></pre>
+    <h4>at(index)</h4>
+    <p>Get the element at the given index</p>
+    <pre><code class="language-javascript">moni(&#39;p&#39;).at(2).css(&#39;color&#39;, &#39;purple&#39;);
+</code></pre>
+    <h4>values(index)</h4>
+    <p>Grab a form&#39;s data simply</p>
+    <pre><code class="language-javascript">moni(&#39;form&#39;).on(&#39;submit&#39;, function(e) {
+  e.preventDefault();
+  const values = moni(&#39;form&#39;).values();
+  console.log(values);
+});
+</code></pre>
+    <h4>before(elem)</h4>
+    <p>Add an element before the matched element</p>
+    <pre><code class="language-javascript">moni(&#39;div&#39;).before(&#39;&lt;div&gt;Div 0&lt;/div&gt;&#39;)
+</code></pre>
+    <h4>after(elem)</h4>
+    <p>Add an element after the matched element</p>
+    <pre><code class="language-javascript">moni(&#39;div&#39;).after(&#39;&lt;div&gt;Div 1&lt;/div&gt;&#39;)
+</code></pre>
+    <h4>children()</h4>
+    <p>Return a list of all the children of the matched element</p>
+    <pre><code class="language-javascript">const children   = moni(&#39;div&#39;).children();
+const firstChild = children.at(0);          // .first();
+</code></pre>
+    <h4>empty()</h4>
+    <p>Empty the contents of the matched element</p>
+    <pre><code class="language-javascript">moni(&#39;ul&#39;).empty();
+</code></pre>
+    <h4>clone(?deep = true)</h4>
+    <p>Clone a matched element. By default deep cloning is set. </p>
+    <pre><code class="language-javascript">const cloned = moni(&#39;ul&#39;).clone(); // or clone(false);
+moni(&#39;body&#39;).add(cloned);
+</code></pre>
+    <h4>addPrevious(element)</h4>
+    <p>Add an element to the previous of moni(selector)</p>
+    <pre><code class="language-javascript">moni(&#39;p&#39;).addPrevious(&#39;&lt;p&gt;Another paragraph&lt;/p&gt;&#39;);
+</code></pre>
+    <h4>addBehind(element)</h4>
+    <p>Add an element to the behind of moni(selector)</p>
+    <pre><code class="language-javascript">moni(&#39;p&#39;).addBehind(&#39;&lt;div&gt;Another paragraph&lt;/div&gt;&#39;);
+</code></pre>
+    <h4>siblings(element)</h4>
+    <p>Select all the siblings of matched element</p>
+    <pre><code class="language-javascript">moni(&#39;ul li&#39;).siblings().css(&#39;color&#39;, &#39;red&#39;);
+</code></pre>
+    <h4>search(query)</h4>
+    <p>Search elements inside moni(selector)</p>
+    <pre><code class="language-javascript">moni(&#39;ul&#39;).search(
+  moni(&#39;.bad&#39;)
+).css(&#39;color&#39;, &#39;red&#39;);
+</code></pre>
+    <h4>near(query)</h4>
+    <p>Find the nearest matching element.</p>
+    <pre><code class="language-javascript">moni(&#39;li&#39;).near(
+  moni(&#39;div&#39;)
+).css(&#39;background-color&#39;, &#39;blue&#39;);
+
+moni(&#39;li&#39;).near(&#39;div&#39;).css(&#39;background-color&#39;, &#39;blue&#39;);
+</code></pre>
+    <h4>classes()</h4>
+    <p>Provides methods to interact with the class list of an element.</p>
+    <h5>has(className)</h5>
+    <pre><code class="language-javascript">const hasClass = moni(&#39;#myDiv&#39;).classes().has(&#39;active&#39;);
+</code></pre>
+    <h5>add(className)</h5>
+    <p>Adds a class to the element.</p>
+    <pre><code class="language-javascript">moni(&#39;#myDiv&#39;).classes().add(&#39;active&#39;);
+</code></pre>
+    <h5>remove(className)</h5>
+    <p>Removes a class from the element.</p>
+    <pre><code class="language-javascript">moni(&#39;#myDiv&#39;).classes().remove(&#39;active&#39;);
+</code></pre>
+    <h5>toggle(className)</h5>
+    <p>Toggle a class for the element.</p>
+    <pre><code class="language-javascript">moni(&#39;button&#39;).on(&#39;click&#39;, function() {
+  moni(&#39;#myDiv&#39;).classes().toggle(&#39;active&#39;);
+});
+</code></pre>
+    <h5>toArray()</h5>
+    <p>Converts the class list to an array.</p>
+    <pre><code class="language-javascript">const classArray = moni(&#39;#myDiv&#39;).classes().toArray();
+</code></pre>
+    <h3>css(property, value)</h3>
+    <p>Gets or sets the CSS style of the selected elements.</p>
+    <pre><code class="language-javascript">// Get the &#39;color&#39; property
+const color = moni(&#39;#myDiv&#39;).css(&#39;color&#39;);
+
+// Set the &#39;color&#39; property
+moni(&#39;#myDiv&#39;).css(&#39;color&#39;, &#39;red&#39;);
+</code></pre>
+    <h4>moni().ajax()</h4>
+    <p>Follow the example: </p>
+    <pre><code class="language-javascript">moni(&#39;form&#39;).on(&#39;submit&#39;, e =&gt; {
+  e.preventDefault();
+
+  const formData = moni(&#39;form&#39;).values();
+
+  moni()
+    .ajax()
+    .request(&#39;http://localhost:3000/users&#39;)
+    .type(&#39;POST&#39;)
+    .loading(() =&gt; console.log(&#39;Loading...&#39;))
+    .header({
+      &#39;Content-Type&#39;: &#39;application/json&#39;,
+    })
+    .send(formData)
+    .failed((error) =&gt; console.error(error))
+    .success((response) =&gt; console.log(&#39;Success:&#39;, response))
+    .end(() =&gt; console.log(&#39;Request finished&#39;))
+    .execute();
+
+});
+</code></pre>
+    <!-- Markdown converted to HTML -->
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+</body>
+
+</html>

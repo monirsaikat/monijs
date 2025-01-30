@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moni.js Test</title>
+
+  <style>
+    .active {
+      background-color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <form action="" enctype="multipart/form-data">
+    <input type="text" name="username" id="username" />
+    <input type="email" name="email" id="email">
+    <button type="submit">Submit</button>
+  </form>
+  
+
+  <script src="./dist/moni.umd.js"></script>
+
+  <script>
+    moni.loaded(() => {
+
+      moni('form').on('submit', function(e) {
+        e.preventDefault();
+        const values = moni(this).values();
+
+        console.log(values);
+      });
+      
+    })
+  </script>
+</body>
+
+</html>

@@ -1,7 +1,8 @@
-import dom from './dom';
-import events from './events';
-import css from './css';
-import moniAjax from './ajax';
+import dom from "./dom";
+import events from "./events";
+import css from "./css";
+import moniAjax from "./ajax";
+import bootsrap from "./bootsrap";
 
 interface Moni {
   (selector: string | HTMLElement | HTMLElement[]): MoniInstance;
@@ -26,9 +27,7 @@ interface MoniInstance {
   }
 })(typeof window !== "undefined" ? window : this, function (global: any) {
   const moni = function (this: any, selector: any) {
-
     return new (moni.fn.init as any)(selector);
-
   } as Moni;
 
   moni.fn = moni.prototype = {
@@ -40,14 +39,9 @@ interface MoniInstance {
 
       if (selector instanceof moni) return selector;
 
-      if (typeof selector === 'string') {
-        if (selector[0] === '#') {
-          this[0] = document.getElementById(selector.slice(1));
-          this.length = 1;
-        } else {
-          const nodeList = document.querySelectorAll(selector);
-          Array.prototype.push.apply(this, nodeList);
-        }
+      if (typeof selector === "string") {
+        const nodeList = document.querySelectorAll(selector);
+        Array.prototype.push.apply(this, nodeList);
       } else if (selector.nodeType) {
         this[0] = selector;
         this.length = 1;
@@ -60,16 +54,16 @@ interface MoniInstance {
 
     ajax: function () {
       return moniAjax();
-    }
+    },
   } as MoniInstance;
 
-  Object.assign(moni.fn, dom, events, css);
+  Object.assign(moni.fn, dom, events, css, bootsrap);
 
   moni.loaded = function (callback: () => void) {
-    if (document.readyState !== 'loading') {
+    if (document.readyState !== "loading") {
       callback();
     } else {
-      document.addEventListener('DOMContentLoaded', callback);
+      document.addEventListener("DOMContentLoaded", callback);
     }
   };
 

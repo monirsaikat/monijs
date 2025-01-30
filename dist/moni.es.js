@@ -1,10 +1,27 @@
 const dom = {
+  find: function(selector) {
+    const foundElements = [];
+    this.each(function(el) {
+      const matchedElements = el.querySelectorAll(selector);
+      Array.prototype.push.apply(foundElements, matchedElements);
+    });
+    return moni(foundElements);
+  },
   html: function(value) {
     if (!value) {
       return this[0] ? this[0].innerHTML : void 0;
     }
     this.each(function(el) {
       el.innerHTML = value;
+    });
+    return this;
+  },
+  text: function(value) {
+    if (value === void 0) {
+      return this[0] ? this[0].textContent : void 0;
+    }
+    this.each(function(el) {
+      el.textContent = value;
     });
     return this;
   },
@@ -114,7 +131,10 @@ const dom = {
       this.each(function(el) {
         content.each(function(clonedEl) {
           if (el.nextSibling) {
-            el.parentNode.insertBefore(clonedEl.cloneNode(true), el.nextSibling);
+            el.parentNode.insertBefore(
+              clonedEl.cloneNode(true),
+              el.nextSibling
+            );
           } else {
             el.parentNode.appendChild(clonedEl.cloneNode(true));
           }
@@ -247,7 +267,11 @@ const dom = {
     if (isSelector) {
       selectors = [query];
     } else {
-      selectors = Array.isArray(query) ? query.map((el) => el.nodeType ? el.tagName.toLowerCase() : null).filter(Boolean) : Array.from(query).map((el) => el.nodeType ? el.tagName.toLowerCase() : null).filter(Boolean);
+      selectors = Array.isArray(query) ? query.map(
+        (el) => el.nodeType ? el.tagName.toLowerCase() : null
+      ).filter(Boolean) : Array.from(query).map(
+        (el) => el.nodeType ? el.tagName.toLowerCase() : null
+      ).filter(Boolean);
     }
     this.each(function(el) {
       let currentElement = el;
@@ -258,7 +282,9 @@ const dom = {
             break;
           }
         } else {
-          if (selectors.some((selector) => currentElement.tagName.toLowerCase() === selector)) {
+          if (selectors.some(
+            (selector) => currentElement.tagName.toLowerCase() === selector
+          )) {
             closestElements.push(currentElement);
             break;
           }
@@ -269,13 +295,24 @@ const dom = {
     return moni(closestElements);
   }
 };
-const events = {
-  on: function(event, callback) {
+function on(event, selectorOrCallback, callback) {
+  if (arguments.length === 2 && typeof selectorOrCallback === "function") {
     this.each(function(el) {
-      el.addEventListener(event, callback);
+      el.addEventListener(event, selectorOrCallback);
     });
-    return this;
-  },
+  } else if (arguments.length === 3 && typeof selectorOrCallback === "string") {
+    this.each(function(el) {
+      el.addEventListener(event, function(e) {
+        if (e.target.matches(selectorOrCallback)) {
+          callback.call(e.target, e);
+        }
+      });
+    });
+  }
+  return this;
+}
+const events = {
+  on,
   off: function(event, callback) {
     this.each(function(el) {
       el.removeEventListener(event, callback);
@@ -435,6 +472,35 @@ class Ajax {
 function moniAjax() {
   return new Ajax();
 }
+const bootsrap = {
+  show: function(options = {}) {
+    this.each(function(el) {
+      if (typeof bootstrap !== "undefined" && bootstrap.Modal) {
+        const modal = new bootstrap.Modal(el, { ...options });
+        modal.show();
+      }
+    });
+    return this;
+  },
+  hide: function() {
+    this.each(function(el) {
+      if (typeof bootstrap !== "undefined" && bootstrap.Modal) {
+        const modal = new bootstrap.Modal(el);
+        modal.hide();
+      }
+    });
+    return this;
+  },
+  toggle: function() {
+    this.each(function(el) {
+      if (typeof bootstrap !== "undefined" && bootstrap.Modal) {
+        const modal = new bootstrap.Modal(el);
+        modal.toggle();
+      }
+    });
+    return this;
+  }
+};
 (function(global, factory) {
   if (typeof module === "object" && typeof module.exports === "object") {
     module.exports = factory(global);
@@ -454,13 +520,8 @@ function moniAjax() {
       if (!selector) return this;
       if (selector instanceof moni2) return selector;
       if (typeof selector === "string") {
-        if (selector[0] === "#") {
-          this[0] = document.getElementById(selector.slice(1));
-          this.length = 1;
-        } else {
-          const nodeList = document.querySelectorAll(selector);
-          Array.prototype.push.apply(this, nodeList);
-        }
+        const nodeList = document.querySelectorAll(selector);
+        Array.prototype.push.apply(this, nodeList);
       } else if (selector.nodeType) {
         this[0] = selector;
         this.length = 1;
@@ -473,7 +534,7 @@ function moniAjax() {
       return moniAjax();
     }
   };
-  Object.assign(moni2.fn, dom, events, css);
+  Object.assign(moni2.fn, dom, events, css, bootsrap);
   moni2.loaded = function(callback) {
     if (document.readyState !== "loading") {
       callback();

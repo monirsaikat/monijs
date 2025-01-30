@@ -5,8 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Moni.js</title>
-  <meta name="description" content=" is a minimal library for DOM manipulation and event handling. Below is a list of available methods with usage examples.">
-  <meta name="keywords" content="moni22, monijs, jquery alternative, dom manipulating, js library, js package, javascript">
+  <meta name="description"
+    content="Moni.js is a minimal library for DOM manipulation and event handling. Below is a list of available methods with usage examples.">
+  <meta name="keywords"
+    content="moni22, monijs, jquery alternative, dom manipulating, js library, js package, javascript">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
   <link rel="stylesheet" href="./style.css">
 </head>
@@ -15,7 +17,7 @@
   <div class="content">
     <div class="header">
       <h1>moni.js</h1>
-      <a href="https://github.com/moniruzzamansaikat/monijs">
+      <a href="https://github.com/moniruzzamansaikat/monijs" target="_blank">
         <img src="./github.svg" alt="github">
       </a>
     </div>
@@ -42,6 +44,26 @@
     <pre><code class="language-javascript">moni(&#39;#myDiv&#39;);  // Select an element with ID &#39;myDiv&#39;
 moni(&#39;.myClass&#39;); // Select elements with class &#39;myClass&#39;
 </code></pre>
+
+    <h4>moni(selector).find()</h4>
+    <p>Find elements inside another thing.</p>
+    <pre><code class="language-javascript">// Get HTML content
+moni('#div').find('p').after('<div class="ok">OK</div>') 
+</code></pre>
+
+    <h4>moni(selector).text(?text)</h4>
+    <p>Set or get text of an element</p>
+    <pre><code class="language-javascript">// Get or set text 
+moni('div').on('click', 'div.ok', function () {
+  moni(this).text('text goes here')
+  const text = moni(this).text();
+
+  console.log({
+    text
+  })
+});
+</code></pre>
+
     <h4>html(value)</h4>
     <p>Gets or sets the HTML content of the selected element.</p>
     <pre><code class="language-javascript">// Get HTML content
@@ -203,6 +225,8 @@ const color = moni(&#39;#myDiv&#39;).css(&#39;color&#39;);
 // Set the &#39;color&#39; property
 moni(&#39;#myDiv&#39;).css(&#39;color&#39;, &#39;red&#39;);
 </code></pre>
+
+
     <h4>moni().ajax()</h4>
     <p>Follow the example: </p>
     <pre><code class="language-javascript">moni(&#39;form&#39;).on(&#39;submit&#39;, e =&gt; {
@@ -226,7 +250,20 @@ moni(&#39;#myDiv&#39;).css(&#39;color&#39;, &#39;red&#39;);
 
 });
 </code></pre>
-    <!-- Markdown converted to HTML -->
+
+
+  <h2>For bootstrap's modal's</h2>
+  <h4>moni('#selector').show()</h4>
+  <pre><code class="language-javascript">moni('#myModal').show()</code></pre>
+  
+  <h4>moni('#selector').hide()</h4>
+  <pre><code class="language-javascript">moni('#myModal').hide()</code></pre>
+
+  
+  <h4>moni('#selector').toggle()</h4>
+  <pre><code class="language-javascript">moni('#myModal').toggle()</code></pre>
+
+  
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 </body>

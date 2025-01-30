@@ -1,0 +1,7 @@
+- Nested selecting elements
+- Events on dynamically created elements
+- find() added
+- text() added
+- bootsrap's modal show() added
+- bootsrap's modal hide() added
+- bootsrap's modal toggle() added

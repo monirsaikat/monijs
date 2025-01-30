@@ -19,20 +19,44 @@
     <input type="email" name="email" id="email">
     <button type="submit">Submit</button>
   </form>
-  
+
+
+  <div id="div">
+    <button class="btn">click me</button>
+    <p>Here the p goes</p>
+  </div>
 
   <script src="./dist/moni.umd.js"></script>
 
   <script>
     moni.loaded(() => {
 
-      moni('form').on('submit', function(e) {
-        e.preventDefault();
-        const values = moni(this).values();
+      moni('button.btn').on('click', function () {
+        moni('#div').find('p').after('<div class="ok">OK</div>')
+      });
 
+      moni('div').on('click', 'div.ok', function () {
+        moni(this).text('text goes here')
+        const text = moni(this).text();
+
+        console.log({
+          text
+        })
+      });
+
+      moni('form').on('submit', function (e) {
+        e.preventDefault();
+
+        // following one works
+        // const values = moni(this).values();
+        // console.log(values);
+        
+        
+        // the following one does not works
+        const values = moni(this).values();
         console.log(values);
       });
-      
+
     })
   </script>
 </body>

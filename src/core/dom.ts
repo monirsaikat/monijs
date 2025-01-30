@@ -1,4 +1,15 @@
 export default {
+  find: function (selector) {
+    const foundElements = [];
+
+    this.each(function (el) {
+      const matchedElements = el.querySelectorAll(selector);
+      Array.prototype.push.apply(foundElements, matchedElements);
+    });
+
+    return moni(foundElements);
+  },
+
   html: function (value) {
     if (!value) {
       return this[0] ? this[0].innerHTML : undefined;
@@ -6,6 +17,18 @@ export default {
 
     this.each(function (el) {
       el.innerHTML = value;
+    });
+
+    return this;
+  },
+
+  text: function (value) {
+    if (value === undefined) {
+      return this[0] ? this[0].textContent : undefined;
+    }
+
+    this.each(function (el) {
+      el.textContent = value;
     });
 
     return this;
@@ -54,13 +77,13 @@ export default {
   },
 
   add: function (content, times) {
-    if (typeof content === 'string') {
-      if (content.includes('<')) {
+    if (typeof content === "string") {
+      if (content.includes("<")) {
         times = times || 1;
         const fragment = document.createDocumentFragment();
 
         for (let i = 0; i < times; i++) {
-          const tempDiv = document.createElement('div');
+          const tempDiv = document.createElement("div");
           tempDiv.innerHTML = content;
 
           while (tempDiv.firstChild) {
@@ -93,10 +116,10 @@ export default {
   },
 
   addPrevious: function (content) {
-    if (typeof content === 'string') {
+    if (typeof content === "string") {
       this.each(function (el) {
         const fragment = document.createDocumentFragment();
-        const tempDiv = document.createElement('div');
+        const tempDiv = document.createElement("div");
         tempDiv.innerHTML = content;
         while (tempDiv.firstChild) {
           fragment.appendChild(tempDiv.firstChild);
@@ -115,10 +138,10 @@ export default {
   },
 
   addBehind: function (content) {
-    if (typeof content === 'string') {
+    if (typeof content === "string") {
       this.each(function (el) {
         const fragment = document.createDocumentFragment();
-        const tempDiv = document.createElement('div');
+        const tempDiv = document.createElement("div");
         tempDiv.innerHTML = content;
         while (tempDiv.firstChild) {
           fragment.appendChild(tempDiv.firstChild);
@@ -133,7 +156,10 @@ export default {
       this.each(function (el) {
         content.each(function (clonedEl) {
           if (el.nextSibling) {
-            el.parentNode.insertBefore(clonedEl.cloneNode(true), el.nextSibling);
+            el.parentNode.insertBefore(
+              clonedEl.cloneNode(true),
+              el.nextSibling
+            );
           } else {
             el.parentNode.appendChild(clonedEl.cloneNode(true));
           }
@@ -158,15 +184,14 @@ export default {
     return moni(siblingsArray);
   },
 
-
   val: function (value) {
     if (value === undefined) {
       return this[0] ? this[0].value : undefined;
     } else {
       this.each(function (el) {
-        if (el.tagName === 'SELECT') {
+        if (el.tagName === "SELECT") {
           el.value = value;
-        } else if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        } else if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
           el.value = value;
         }
       });
@@ -202,11 +227,11 @@ export default {
 
     Array.prototype.forEach.call(elements, function (el) {
       if (el.name && !el.disabled) {
-        if ((el.type === 'checkbox' || el.type === 'radio')) {
+        if (el.type === "checkbox" || el.type === "radio") {
           if (el.checked) {
             values[el.name] = el.value;
           }
-        } else if (el.tagName === 'SELECT' && el.multiple) {
+        } else if (el.tagName === "SELECT" && el.multiple) {
           const selectedValues = [];
           Array.prototype.forEach.call(el.options, function (option) {
             if (option.selected) {
@@ -214,7 +239,7 @@ export default {
             }
           });
           values[el.name] = selectedValues;
-        } else if (el.type === 'file') {
+        } else if (el.type === "file") {
           values[el.name] = el.files.length > 1 ? el.files : el.files[0]; // For multiple files or a single file
         } else {
           values[el.name] = el.value;
@@ -227,14 +252,14 @@ export default {
 
   after: function (html) {
     this.each(function (el) {
-      el.insertAdjacentHTML('afterend', html);
+      el.insertAdjacentHTML("afterend", html);
     });
     return this;
   },
 
   before: function (html) {
     this.each(function (el) {
-      el.insertAdjacentHTML('beforebegin', html);
+      el.insertAdjacentHTML("beforebegin", html);
     });
     return this;
   },
@@ -251,7 +276,7 @@ export default {
 
   empty: function () {
     this.each(function (el) {
-      el.innerHTML = '';
+      el.innerHTML = "";
     });
 
     return this;
@@ -270,7 +295,7 @@ export default {
   search: function (query) {
     const matchedElements = [];
 
-    if (typeof query === 'string') {
+    if (typeof query === "string") {
       this.each(function (el) {
         const foundElements = el.querySelectorAll(query);
         Array.prototype.push.apply(matchedElements, foundElements);
@@ -291,15 +316,23 @@ export default {
   near: function (query) {
     const closestElements = [];
 
-    const isSelector = typeof query === 'string';
+    const isSelector = typeof query === "string";
 
     let selectors;
     if (isSelector) {
       selectors = [query];
     } else {
-      selectors = Array.isArray(query) ?
-        query.map((el: Element) => el.nodeType ? el.tagName.toLowerCase() : null).filter(Boolean) :
-        Array.from(query).map((el: Element) => el.nodeType ? el.tagName.toLowerCase() : null).filter(Boolean);
+      selectors = Array.isArray(query)
+        ? query
+            .map((el: Element) =>
+              el.nodeType ? el.tagName.toLowerCase() : null
+            )
+            .filter(Boolean)
+        : Array.from(query)
+            .map((el: Element) =>
+              el.nodeType ? el.tagName.toLowerCase() : null
+            )
+            .filter(Boolean);
     }
 
     this.each(function (el) {
@@ -311,7 +344,11 @@ export default {
             break;
           }
         } else {
-          if (selectors.some(selector => currentElement.tagName.toLowerCase() === selector)) {
+          if (
+            selectors.some(
+              (selector) => currentElement.tagName.toLowerCase() === selector
+            )
+          ) {
             closestElements.push(currentElement);
             break;
           }
@@ -321,5 +358,5 @@ export default {
     });
 
     return moni(closestElements);
-  }
+  },
 };

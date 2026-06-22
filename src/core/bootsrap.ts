@@ -1,32 +1,31 @@
 export default {
-    show: function (options = {}) {
-      this.each(function (el) {
-        if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
-          const modal = new bootstrap.Modal(el, {...options});
-          modal.show();
-        }
-      });
-      return this;
-    },
-  
-    hide: function () {
-      this.each(function (el) {
-        if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
-          const modal = new bootstrap.Modal(el);
-          modal.hide();
-        }
-      });
-      return this;
-    },
-  
-    toggle: function () {
-      this.each(function (el) {
-        if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
-          const modal = new bootstrap.Modal(el);
-          modal.toggle();
-        }
-      });
-      return this;
-    }
-  };
-  
+  modal: function (options = {}) {
+    const instance = this;
+    return {
+      show() {
+        instance.each(function (el) {
+          if (typeof bootstrap !== "undefined" && bootstrap.Modal) {
+            new bootstrap.Modal(el, options).show();
+          }
+        });
+        return instance;
+      },
+      hide() {
+        instance.each(function (el) {
+          if (typeof bootstrap !== "undefined" && bootstrap.Modal) {
+            new bootstrap.Modal(el).hide();
+          }
+        });
+        return instance;
+      },
+      toggle() {
+        instance.each(function (el) {
+          if (typeof bootstrap !== "undefined" && bootstrap.Modal) {
+            new bootstrap.Modal(el).toggle();
+          }
+        });
+        return instance;
+      },
+    };
+  },
+};

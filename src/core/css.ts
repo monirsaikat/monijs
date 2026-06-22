@@ -1,6 +1,6 @@
 export default {
-  css: function (prop, value) {
-    if (!value) {
+  css: function (prop, value?) {
+    if (value === undefined) {
       return this[0] ? getComputedStyle(this[0])[prop] : undefined;
     } else {
       return this.each(function (el) {
@@ -36,9 +36,37 @@ export default {
       },
       toArray: function () {
         return classList ? Array.from(classList) : [];
-      }
+      },
     };
 
     return Object.assign(Object.create(this.constructor.fn), methods, this);
-  }
+  },
+
+  hasClass: function (className) {
+    return this[0] ? this[0].classList.contains(className) : false;
+  },
+
+  addClass: function (className) {
+    const names = className.trim().split(/\s+/);
+    return this.each(function (el) {
+      el.classList.add(...names);
+    });
+  },
+
+  removeClass: function (className) {
+    const names = className.trim().split(/\s+/);
+    return this.each(function (el) {
+      el.classList.remove(...names);
+    });
+  },
+
+  toggleClass: function (className, force?) {
+    return this.each(function (el) {
+      if (force !== undefined) {
+        el.classList.toggle(className, force);
+      } else {
+        el.classList.toggle(className);
+      }
+    });
+  },
 };
